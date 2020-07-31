@@ -26,12 +26,12 @@ public class Repository{
     //Room
     private FavsDogsDao dao;
     private LiveData<List<FavDog>> mvFavsDog;
-
+    FavsDogsDB db;
 
     public Repository(Application application) {
         api = ApiService.ApiServiceClient.getRetrofitInstance().create(ApiService.class);
 
-        FavsDogsDB db = FavsDogsDB.getDatabase(application);
+        db = FavsDogsDB.getDatabase(application);
         dao = db.dao();
         mvFavsDog = dao.getAllFavsDogs();
 
@@ -41,6 +41,15 @@ public class Repository{
     public LiveData<List<FavDog>> getFavsDogs() {
         mvFavsDog = dao.getAllFavsDogs();
         return mvFavsDog;
+    }
+
+    public void addFavsDogs(FavDog dog) {
+        db.dataExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                dao.insertFavDog(dog);
+            }
+        });
     }
 
     /********************** API REST **************************************************************/
