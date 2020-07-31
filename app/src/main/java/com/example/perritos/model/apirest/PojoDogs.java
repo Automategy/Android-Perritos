@@ -1,4 +1,4 @@
-package com.example.perritos.model;
+package com.example.perritos.model.apirest;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

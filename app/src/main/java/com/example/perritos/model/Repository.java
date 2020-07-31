@@ -1,29 +1,51 @@
 package com.example.perritos.model;
 
+import android.app.Application;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import com.example.perritos.model.apirest.ApiService;
+import com.example.perritos.model.apirest.PojoBreeds;
+import com.example.perritos.model.apirest.PojoDogs;
+import com.example.perritos.model.db.FavsDogsDB;
+import com.example.perritos.model.db.FavsDogsDao;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class Repository{
+    // retrofit
     private ApiService api;
-    List<String> dogsUrl;
-    MutableLiveData<List<String>> mvDogsUrl = new MutableLiveData<>();
-    MutableLiveData<List<String>> mvDogsBreeds = new MutableLiveData<>();
+    private List<String> dogsUrl;
+    private MutableLiveData<List<String>> mvDogsUrl = new MutableLiveData<>();
+    private MutableLiveData<List<String>> mvDogsBreeds = new MutableLiveData<>();
+    //Room
+    private FavsDogsDao dao;
+    private LiveData<List<FavDog>> mvFavsDog;
 
 
-    public Repository() {
-        api = ApiServiceClient.getRetrofitInstance().create(ApiService.class);
+    public Repository(Application application) {
+        api = ApiService.ApiServiceClient.getRetrofitInstance().create(ApiService.class);
+
+        FavsDogsDB db = FavsDogsDB.getDatabase(application);
+        dao = db.dao();
+        mvFavsDog = dao.getAllFavsDogs();
+
     }
 
+    /*********************** LOCAL DATABASE *******************************************************/
+    public LiveData<List<FavDog>> getFavsDogs() {
+        mvFavsDog = dao.getAllFavsDogs();
+        return mvFavsDog;
+    }
 
-    public MutableLiveData<List<String>> fetchDogsUrls() {
-        Call<PojoDogs> call = api.getDogsURL("asdf");
+    /********************** API REST **************************************************************/
+    public MutableLiveData<List<String>> fetchDogsUrls(String breed) {
+        Call<PojoDogs> call = api.getDogsURL(breed);
 
         call.enqueue(new Callback<PojoDogs>() {
             @Override

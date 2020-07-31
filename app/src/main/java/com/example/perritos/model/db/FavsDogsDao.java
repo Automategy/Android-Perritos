@@ -15,7 +15,7 @@ public interface FavsDogsDao  {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertFavDog(FavDog dog);
 
-    @Query("SELECT * FROM favs_dogs")
+    @Query("SELECT * FROM favs_dogs ORDER BY id")
     LiveData<List<FavDog>> getAllFavsDogs();
 
 }
