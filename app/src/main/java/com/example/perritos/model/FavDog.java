@@ -5,7 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "favs_dogs")
-public class FavsDogs {
+public class FavDog {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     private int id;
