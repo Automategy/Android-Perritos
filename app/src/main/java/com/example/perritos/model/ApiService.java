@@ -8,10 +8,10 @@ import retrofit2.http.Path;
 
 public interface ApiService {
     @GET("breeds/list")
-    Call<List<String>> getBreedsList();
+    Call<PojoBreeds> getBreedsList();
 
     @GET("breed/{breed}/images")
-    Call<List<String>> getDogsURL(@Path("breed") String breed);
+    Call<PojoDogs> getDogsURL(@Path("breed") String breed);
 
 
 }
