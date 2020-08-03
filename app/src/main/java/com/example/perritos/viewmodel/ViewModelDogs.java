@@ -18,7 +18,7 @@ public class ViewModelDogs extends AndroidViewModel {
 
     public ViewModelDogs(Application application) {
         super(application);
-        breedSelected.setValue("");
+        breedSelected = new MutableLiveData<>("");
         repository = new Repository(application);
     }
 

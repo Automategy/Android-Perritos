@@ -67,6 +67,7 @@ public class FirstFragment extends Fragment implements BreedListAdapter.BreedLis
     @Override
     public void breedClicked(String breed) {
         Log.d("clicked", "breedClicked: " + breed);
+        viewModelDogs.setBreedSelected(breed);
         NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_SecondFragment);
     }
 }

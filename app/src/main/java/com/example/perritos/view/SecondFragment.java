@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.perritos.databinding.FragmentSecondBinding;
@@ -14,7 +16,8 @@ import com.example.perritos.viewmodel.ViewModelDogs;
 
 public class SecondFragment extends Fragment {
 
-    FragmentSecondBinding binding;
+    private FragmentSecondBinding binding;
+    private ViewModelDogs viewModelDogs;
 
     @Override
     public View onCreateView(
@@ -22,6 +25,16 @@ public class SecondFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         binding = FragmentSecondBinding.inflate(inflater, container, false);
+
+        viewModelDogs = new ViewModelProvider(getActivity()).get(ViewModelDogs.class);
+
+        viewModelDogs.getBreedSelected().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                binding.tvBreedTitle.setText(s);
+            }
+        });
+
 
 
 
