@@ -2,8 +2,10 @@ package com.example.perritos.view.adapters;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,6 +56,15 @@ public class BreedListAdapter extends RecyclerView.Adapter<BreedListAdapter.View
         public ViewHolderBreeds(@NonNull BreedsViewBinding binding) {
             super(binding.getRoot());
             breedName = binding.tvBreedName;
+
+            binding.cvBreed.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(view.getContext(), binding.tvBreedName.getText().toString() + " selected", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
+
+
     }
 }

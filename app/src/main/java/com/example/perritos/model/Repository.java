@@ -1,6 +1,7 @@
 package com.example.perritos.model;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -83,6 +84,7 @@ public class Repository{
             @Override
             public void onResponse(Call<PojoBreeds> call, Response<PojoBreeds> response) {
                 if (response.code() == 200) {
+                    Log.d("API_BREEDS", "onResponse: " + response.body().getMessage().toString());
                     mvDogsBreeds.setValue(response.body().getMessage());
                 } else {
                     mvDogsBreeds.setValue(null);
@@ -94,6 +96,6 @@ public class Repository{
                 mvDogsBreeds.setValue(null);
             }
         });
-        return mvDogsUrl;
+        return mvDogsBreeds;
     }
 }
