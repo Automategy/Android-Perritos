@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -66,7 +67,10 @@ public class DogsPhotoAdapter extends RecyclerView.Adapter<DogsPhotoAdapter.VhDo
             binding.cvDogs.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    listener.onLongClick(listUrlsImg.get(getAdapterPosition()));
+                    Toast.makeText(view.getContext(), "Añadido a favoritos", Toast.LENGTH_SHORT).show();
+                    if (listener != null)
+                        listener.onLongClick(listUrlsImg.get(getAdapterPosition()));
+
                     return true;
                 }
             });
