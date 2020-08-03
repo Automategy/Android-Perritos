@@ -12,6 +12,7 @@ import com.example.perritos.model.apirest.PojoDogs;
 import com.example.perritos.model.db.FavsDogsDB;
 import com.example.perritos.model.db.FavsDogsDao;
 
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -60,16 +61,20 @@ public class Repository{
         call.enqueue(new Callback<PojoDogs>() {
             @Override
             public void onResponse(Call<PojoDogs> call, Response<PojoDogs> response) {
+                Log.d("RETROFIT", "fetchDogsUrls: " + response.toString());
                 if (response.code() == 200) {
+                    Log.d("RETROFIT", "fetchDogsUrls: " + response.body().getMessage().toString());
                     mvDogsUrl.setValue(response.body().getMessage());
                 } else {
-                    mvDogsUrl.setValue(null);
+                    mvDogsUrl.setValue(Collections.singletonList(""));
                 }
             }
 
             @Override
             public void onFailure(Call<PojoDogs> call, Throwable t) {
-                mvDogsUrl.setValue(null);
+                Log.d("RETROFIT", "fetchDogsUrls: " + t.toString());
+
+                mvDogsUrl.setValue(Collections.singletonList(""));
             }
         });
 

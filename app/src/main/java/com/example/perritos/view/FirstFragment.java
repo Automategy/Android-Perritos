@@ -24,6 +24,7 @@ import com.example.perritos.viewmodel.ViewModelDogs;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class FirstFragment extends Fragment implements BreedListAdapter.BreedListener {
 
@@ -39,7 +40,7 @@ public class FirstFragment extends Fragment implements BreedListAdapter.BreedLis
     ) {
         binding = FragmentFirstBinding.inflate(inflater, container, false);
 
-        viewModelDogs = new ViewModelProvider(getActivity()).get(ViewModelDogs.class);
+        viewModelDogs = new ViewModelProvider(requireActivity()).get(ViewModelDogs.class);
 
 
         recyclerView = binding.recyclerView;

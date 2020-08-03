@@ -1,6 +1,7 @@
 package com.example.perritos.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -39,6 +40,7 @@ public class ViewModelDogs extends AndroidViewModel {
     }
 
     public LiveData<List<String>> getListUrlDogs(String breed) {
+        Log.d(  "VIEW_MODEL", "getListUrlDogs: " + (breed == null));
         return repository.fetchDogsUrls(breed);
     }
 
