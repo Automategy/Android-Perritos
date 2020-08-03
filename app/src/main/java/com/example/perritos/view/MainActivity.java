@@ -1,7 +1,8 @@
-package com.example.perritos;
+package com.example.perritos.view;
 
 import android.os.Bundle;
 
+import com.example.perritos.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
