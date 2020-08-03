@@ -8,15 +8,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.perritos.R;
 import com.example.perritos.databinding.BreedsViewBinding;
+import com.example.perritos.view.FirstFragment;
 
 import java.util.List;
 
 public class BreedListAdapter extends RecyclerView.Adapter<BreedListAdapter.ViewHolderBreeds> {
 
     private List<String> breeds;
+    private BreedListener listener;
+
+
+    public BreedListAdapter(BreedListener listener) {
+        this.listener = listener;
+    }
 
     public void updateListBreed(List<String> breeds) {
         this.breeds = breeds;
@@ -60,11 +70,14 @@ public class BreedListAdapter extends RecyclerView.Adapter<BreedListAdapter.View
             binding.cvBreed.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(view.getContext(), binding.tvBreedName.getText().toString() + " selected", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(), breedName.getText().toString() + " selected", Toast.LENGTH_SHORT).show();
+                    listener.breedClicked(breedName.getText().toString());
                 }
             });
         }
+    }
 
-
+    public interface BreedListener {
+        void breedClicked(String breed);
     }
 }

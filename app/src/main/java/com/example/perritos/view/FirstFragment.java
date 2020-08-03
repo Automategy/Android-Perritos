@@ -2,6 +2,7 @@ package com.example.perritos.view;
 
 import android.os.Binder;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,7 @@ import com.example.perritos.viewmodel.ViewModelDogs;
 import java.util.Arrays;
 import java.util.List;
 
-public class FirstFragment extends Fragment {
+public class FirstFragment extends Fragment implements BreedListAdapter.BreedListener {
 
     private FragmentFirstBinding binding;
     private RecyclerView recyclerView;
@@ -37,11 +38,11 @@ public class FirstFragment extends Fragment {
     ) {
         binding = FragmentFirstBinding.inflate(inflater, container, false);
 
-        viewModelDogs = new ViewModelProvider(this).get(ViewModelDogs.class);
+        viewModelDogs = new ViewModelProvider(getActivity()).get(ViewModelDogs.class);
 
 
         recyclerView = binding.recyclerView;
-        breedListAdapter = new BreedListAdapter();
+        breedListAdapter = new BreedListAdapter(this);
         recyclerView.setAdapter(breedListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -60,5 +61,10 @@ public class FirstFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void breedClicked(String breed) {
+        Log.d("clicked", "breedClicked: " + breed);
     }
 }
