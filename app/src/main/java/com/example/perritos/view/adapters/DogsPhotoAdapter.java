@@ -11,12 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.perritos.databinding.DogViewBinding;
+import com.example.perritos.model.FavDog;
 
 import java.util.List;
 
 public class DogsPhotoAdapter extends RecyclerView.Adapter<DogsPhotoAdapter.VhDogsPhotoAdapter> {
 
     private List<String> listUrlsImg;
+    private OnLongClick listener;
+
+    public DogsPhotoAdapter(OnLongClick listener) {
+        this.listener = listener;
+    }
 
     public void updateListUrlImg(List<String> list) {
         listUrlsImg = list;
@@ -56,6 +62,18 @@ public class DogsPhotoAdapter extends RecyclerView.Adapter<DogsPhotoAdapter.VhDo
         public VhDogsPhotoAdapter(@NonNull DogViewBinding binding) {
             super(binding.getRoot());
             iv = binding.ivDog;
+
+            binding.cvDogs.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    listener.onLongClick(listUrlsImg.get(getAdapterPosition()));
+                    return true;
+                }
+            });
         }
+    }
+
+    public interface OnLongClick {
+        void onLongClick(String dogUrl);
     }
 }

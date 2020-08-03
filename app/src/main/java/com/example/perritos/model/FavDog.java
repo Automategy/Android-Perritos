@@ -13,6 +13,10 @@ public class FavDog {
     private String breedName;
     private String dogUrl;
 
+    public FavDog(String breedName, String dogUrl) {
+        this.breedName = breedName;
+        this.dogUrl = dogUrl;
+    }
 
     public int getId() {
         return id;

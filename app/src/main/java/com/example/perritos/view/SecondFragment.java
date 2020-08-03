@@ -15,13 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.perritos.databinding.FragmentSecondBinding;
+import com.example.perritos.model.FavDog;
 import com.example.perritos.view.adapters.DogsPhotoAdapter;
 import com.example.perritos.viewmodel.ViewModelDogs;
 
 import java.util.List;
 import java.util.Objects;
 
-public class SecondFragment extends Fragment {
+public class SecondFragment extends Fragment implements DogsPhotoAdapter.OnLongClick {
 
     private FragmentSecondBinding binding;
     private ViewModelDogs viewModelDogs;
@@ -39,17 +40,12 @@ public class SecondFragment extends Fragment {
         viewModelDogs = new ViewModelProvider(requireActivity()).get(ViewModelDogs.class);
 
         recyclerView = binding.recyclerViewImg;
-        dogsPhotoAdapter = new DogsPhotoAdapter();
+        dogsPhotoAdapter = new DogsPhotoAdapter(this);
         recyclerView.setAdapter(dogsPhotoAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         breedSelected = viewModelDogs.getBreedSelected().getValue();
+        binding.tvBreedName.setText(breedSelected);
 
-        viewModelDogs.getBreedSelected().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                binding.tvBreedName.setText(breedSelected);
-            }
-        });
 
         viewModelDogs.getListUrlDogs(breedSelected).observe(getViewLifecycleOwner(), new Observer<List<String>>() {
             @Override
@@ -66,5 +62,12 @@ public class SecondFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onLongClick(String dogUrl) {
+        Log.d("LongClick", "onLongClick: " + breedSelected + " " + dogUrl);
+        FavDog dog = new FavDog(breedSelected, dogUrl);
+        viewModelDogs.insertNewFavDog(dog);
     }
 }
