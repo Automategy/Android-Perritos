@@ -10,16 +10,20 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.perritos.databinding.FragmentSecondBinding;
+import com.example.perritos.viewmodel.ViewModelDogs;
 
 public class SecondFragment extends Fragment {
 
     FragmentSecondBinding binding;
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
         binding = FragmentSecondBinding.inflate(inflater, container, false);
+
+
 
         // Inflate the layout for this fragment
         return binding.getRoot();
